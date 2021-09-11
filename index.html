@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+  <head>
+    <meta charset="utf-8"> <!-- utf-8 works for most cases -->
+    <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
+    <meta name="x-apple-disable-message-reformatting"> <!-- Disable auto-scale in iOS 10 Mail entirely -->
+    <meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no"> <!-- Tell iOS not to automatically link certain text strings. -->
+    <meta name="color-scheme" content="light">
+    <meta name="supported-color-schemes" content="light">
+    <title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
+
+    <!-- What it does: Makes background images in 72ppi Outlook render at correct size. -->
+    <!--[if gte mso 9]>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:AllowPNG />
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
+
+    <!-- Web Font / @font-face : BEGIN -->
+    <!-- NOTE: If web fonts are not required, lines 23 - 41 can be safely removed. -->
+
+    <!-- Desktop Outlook chokes on web font references and defaults to Times New Roman, so we force a safe fallback font. -->
+    <!--[if mso]>
+    <style>
+      * {
+        font-family: sans-serif !important;
+      }
+    </style>
+    <![endif]-->
+
+    <!-- All other clients get the webfont reference; some will render the font and others will silently fail to the fallbacks. More on that here: http://stylecampaign.com/blog/2015/02/webfont-support-in-email/ -->
+    <!--[if !mso]><!-->
+    <!-- insert web font reference, eg: <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
+    <!--<![endif]-->
+
+    <!-- Web Font / @font-face : END -->
+
+    <!-- CSS Reset : BEGIN -->
+    <style>
+      /* What it does: Tells the email client that only light styles are provided but the client can transform them to dark. A duplicate of meta color-scheme meta tag above. */
+      :root {
+        color-scheme: light;
+        supported-color-schemes: light;
+      }
+
+      /* What it does: Remove spaces around the email design added by some email clients. */
+      /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+      html,
+      body {
+        margin: 0 auto !important;
+        padding: 0 !important;
+        height: 100% !important;
+        width: 100% !important;
+      }
+
+      /* What it does: Stops email clients resizing small text. */
+      * {
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      /* What it does: Centers email on Android 4.4 */
+      div[style*="margin: 16px 0"] {
+        margin: 0 !important;
+      }
+
+      /* What it does: forces Samsung Android mail clients to use the entire viewport */
+      #MessageViewBody,
+      #MessageWebViewDiv {
+        width: 100% !important;
+      }
+
+      /* What it does: Stops Outlook from adding extra spacing to tables. */
+      table,
+      td {
+        mso-table-lspace: 0pt !important;
+        mso-table-rspace: 0pt !important;
+      }
+
+      /* What it does: Fixes webkit padding issue. */
+      table {
+        border-spacing: 0 !important;
+        border-collapse: collapse !important;
+        table-layout: fixed !important;
+        margin: 0 auto !important;
+      }
+
+      /* What it does: Uses a better rendering method when resizing images in IE. */
+      img {
+        -ms-interpolation-mode: bicubic;
+      }
+
+      /* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
+      a {
+        text-decoration: none;
+      }
+
+      /* What it does: A work-around for email clients meddling in triggered links. */
+      a[x-apple-data-detectors],
+      /* iOS */
+      .unstyle-auto-detected-links a,
+      .aBn {
+        border-bottom: 0 !important;
+        cursor: default !important;
+        color: inherit !important;
+        text-decoration: none !important;
+        font-size: inherit !important;
+        font-family: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+      }
+
+      /* What it does: Prevents Gmail from changing the text color in conversation threads. */
+      .im {
+        color: inherit !important;
+      }
+
+      /* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
+      .a6S {
+        display: none !important;
+        opacity: 0.01 !important;
+      }
+
+      /* If the above doesn't work, add a .g-img class to any image in question. */
+      img.g-img+div {
+        display: none !important;
+      }
+
+      /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+      /* Create one of these media queries for each additional viewport size you'd like to fix */
+
+      /* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
+      @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+        u~div .email-container {
+          min-width: 320px !important;
+        }
+      }
+
+      /* iPhone 6, 6S, 7, 8, and X */
+      @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+        u~div .email-container {
+          min-width: 375px !important;
+        }
+      }
+
+      /* iPhone 6+, 7+, and 8+ */
+      @media only screen and (min-device-width: 414px) {
+        u~div .email-container {
+          min-width: 414px !important;
+        }
+      }
+    </style>
+    <!-- CSS Reset : END -->
+
+    <!-- Progressive Enhancements : BEGIN -->
+    <style>
+      /* What it does: Hover styles for buttons */
+      .button-td,
+      .button-a {
+        transition: all 100ms ease-in;
+      }
+
+      .button-td-primary:hover,
+      .button-a-primary:hover {
+        background: #555555 !important;
+        border-color: #555555 !important;
+      }
+
+      /* Media Queries */
+      @media screen and (max-width: 480px) {
+
+        /* What it does: Forces table cells into full-width rows. */
+        .stack-column,
+        .stack-column-center {
+          display: block !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          direction: ltr !important;
+        }
+
+        /* And center justify these ones. */
+        .stack-column-center {
+          text-align: center !important;
+        }
+
+        /* What it does: Generic utility class for centering. Useful for images, buttons, and nested tables. */
+        .center-on-narrow {
+          text-align: center !important;
+          display: block !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          float: none !important;
+        }
+
+        table.center-on-narrow {
+          display: inline-block !important;
+        }
+
+        /* What it does: Adjust typography on small screens to improve readability */
+        .email-container p {
+          font-size: 17px !important;
+        }
+      }
+    </style>
+    <!-- Progressive Enhancements : END -->
+
+  </head>
+  <!--
+	The email background color (#222222) is defined in three places:
+	1. body tag: for most email clients
+	2. center tag: for Gmail and Inbox mobile apps and web versions of Gmail, GSuite, Inbox, Yahoo, AOL, Libero, Comcast, freenet, Mail.ru, Orange.fr
+	3. mso conditional: For Windows 10 Mail
+-->
+  <body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #222222;">
+    <center role="article" aria-roledescription="email" lang="en" style="width: 100%; background-color: #222222;">
+      <!--[if mso | IE]>
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #222222;">
+        <tr>
+          <td>
+      <![endif]-->
+
+            <!-- Visually Hidden Preheader Text : BEGIN -->
+            <div style="max-height:0; overflow:hidden; mso-hide:all;" aria-hidden="true">
+              (Optional) This text will appear in the inbox preview, but not the email body. It can be used to supplement the email subject line or even summarize the email's contents. Extended text preheaders (~490 characters) seems like a better UX for anyone using a screenreader or voice-command apps like Siri to dictate the contents of an email. If this text is not included, email clients will automatically populate it using the text (including image alt text) at the start of the email's body.
+            </div>
+            <!-- Visually Hidden Preheader Text : END -->
+
+            <!-- Create white space after the desired preview text so email clients don’t pull other distracting text into the inbox preview. Extend as necessary. -->
+            <!-- Preview Text Spacing Hack : BEGIN -->
+            <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+              &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+            </div>
+            <!-- Preview Text Spacing Hack : END -->
+
+            <!--
+            Set the email width. Defined in two places:
+            1. max-width for all clients except Desktop Windows Outlook, allowing the email to squish on narrow but never go wider than 680px.
+            2. MSO tags for Desktop Windows Outlook enforce a 680px width.
+            Note: The Fluid and Responsive templates have a different width (600px). The hybrid grid is more "fragile", and I've found that 680px is a good width. Change with caution.
+        -->
+            <div style="width:100%;max-width: 600px; margin: 0 auto;" class="email-container">
+              <!--[if mso]>
+              <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600">
+                <tr>
+                  <td>
+              <![endif]-->
+
+                    <!-- Email Body : BEGIN -->
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+                      <!-- Email logo : BEGIN -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding:0;">
+                          <a href="https://www.disneyplus.com/">
+                            <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/2/6a44f484-36b9-4799-b8e6-18907ded14b1.gif" alt="Disney + logo" style="display: block;width: 100%;max-width: 600px;;" width="600" border="0" />
+                          </a>
+                        </td>
+                      </tr>
+                      <!-- Email logo : END -->
+
+                      <!-- Hero 1 Image, Flush : BEGIN -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding:0 0 20px 0;background: #0d0d0d;">
+                          <a href="https://www.disneyplus.com/">
+                            <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/7b0ec0f7-e33a-4411-b165-a872d2e10f90.jpg" alt="New this week banner" style="display: block;width: 100%;max-width: 600px;border: 0;" border="0" width="600" />
+                          </a>
+                        </td>
+                      </tr>
+                      <!-- Hero 1 Image, Flush : END -->
+
+                      <!-- Hero 2 Image, Flush : BEGIN -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding:0 0 30px 0;">
+                          <a href="https://www.disneyplus.com/">
+                            <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/0f979503-33a1-459a-bf72-d6ad9e310bb0.gif" alt="Wanda Vision Hero Gif" width="100%" border="0" style="display: block;width: 100%;max-width: 600px;border: 0;" </a>
+                        </td>
+                      </tr>
+
+                      <!-- Hero 2 Image, Flush : END -->
+
+                      <!-- 1 Column Text + Button : BEGIN -->
+                      <tr>
+                        <td bgcolor="#0d0d0d" align="center" style="color:#ffffff;font-size: 20px;font-family: Arial, Helvetica, sans-serif;font-weight: 700;background: #0d0d0d;padding-bottom: 20px;">
+                          New episode now streaming
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="background: #0d0d0d;color: #afafaf;font-family: Arial, Helvetica, sans-serif;font-size: 16px;padding-bottom: 30px;">
+                          In Episode 8, the only way forward is back.
+                        </td>
+                      </tr>
+                      <!-- 1 Column Text + Button : END -->
+
+                      <!-- Buttons section : BEGIN -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 40px;padding-left: 40px;padding-right: 40px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 20px;">
+                                <a href="https://www.disneyplus.com/">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/2/e6a34e07-66e5-4150-bd1b-94074f9d9106.png" alt="Start streaming button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" style="font-size: 0%;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" alt="" width="5" height="9" style="display:block" border="0">
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 20px;">
+                                <a href="https://www.disneyplus.com/">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/2/0a10d955-68aa-4f95-a374-3035c8fa4fc1.png" alt="Watchlist button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- Buttons section : END -->
+
+                      <!-- Horizontal rule: BEGIN -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding-left:41px;padding-right:41px;padding-bottom: 50px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td bgcolor="#737487" style="background-color: #;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" style="display: block;" border="0" />
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- Horizontal rule: END -->
+
+                      <!-- Watch together section : BEGIN -->
+                      <tr>
+                        <td bgcolor="#0d0d0d" align="center" style="color:#ffffff;font-size: 20px;font-family: Arial, Helvetica, sans-serif;font-weight: 700;background: #0d0d0d;padding-bottom: 20px;">
+                          Watch together, even when apart
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 35px;">
+                          <a href="https://www.disneyplus.com/">
+                            <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/bbf4f4ff-fe11-4232-8d03-1f65d0e5f001.jpg" alt="Group watch image" style="display: block;border: 0;width: 100%;max-width: 400px;" width="400" border="0" />
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="background: #0d0d0d;color: #afafaf;font-family: Arial, Helvetica, sans-serif;font-size: 16px;padding-bottom: 30px;padding-right: 40px;padding-left: 40px;line-height: 24px;">
+                          Can’t get together in-person? No worries, that’s what GroupWatch is for. Hakuna Matata, indeed!
+                        </td>
+                      </tr>
+
+                      <!-- Buttons -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 40px;padding-left: 40px;padding-right: 40px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 20px;">
+                                <a href="https://www.disneyplus.com/">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/2/e6a34e07-66e5-4150-bd1b-94074f9d9106.png" alt="Start streaming button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" style="font-size: 0%;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" alt="" width="5" height="9" style="display:block" border="0">
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 20px;">
+                                <a href="https://www.disneyplus.com/">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/31277d93-ee33-459b-90e3-5ca6b7f4692a.png" alt="GroupWatch button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- End buttons -->
+                      <!-- Watch together section : END -->
+
+                      <!-- Horizontal rule: BEGIN -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding-left:41px;padding-right:41px;padding-bottom: 50px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td bgcolor="#737487" style="background-color: #;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" style="display: block;" border="0" />
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- Horizontal rule: END -->
+
+                      <!-- Raya section : BEGIN -->
+                      <tr>
+                        <td bgcolor="#0d0d0d" align="center" style="color:#ffffff;font-size: 20px;font-family: Arial, Helvetica, sans-serif;font-weight: 700;background: #0d0d0d;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;line-height: 30px;">
+                          From the studio that brought you <span style="font-style: italic;">Moana</span> <br />and <span style="font-style: italic;">Frozen</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 35px;">
+                          <a href="https://www.disneyplus.com/">
+                            <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/4fb43a02-30f8-4f52-9873-36f2a90e4abc.jpg" alt="Raya and The last Dragon Banner" style="display: block;border: 0;width: 100%;max-width: 400px;" width="400" border="0" />
+                          </a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="background: #0d0d0d;color: #afafaf;font-family: Arial, Helvetica, sans-serif;font-size: 16px;padding-bottom: 20px;padding-right: 40px;padding-left: 40px;line-height: 24px;">
+                          Watch the trailer for <span style="font-style: italic;">Raya and the Last Dragon</span>, and <br /> stream the movie March 5 with Premier Access for an <br /> additional fee.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding-right: 40px;padding-left: 40px;color: #afafaf;font-size: 11px;line-height: 16px;padding-bottom: 30px;font-family: Arial, Helvetica, sans-serif;">
+                          Stream it for $29.99. Disney+ subscription required.
+                        </td>
+                      </tr>
+
+                      <!-- Buttons -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 40px;padding-left: 40px;padding-right: 40px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 20px;">
+                                <a href="https://www.disneyplus.com/">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/8726f104-5768-49a9-9d43-8d76d5db3cb0.png" alt="Watch trailer button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" style="font-size: 0%;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" alt="" width="5" height="9" style="display:block" border="0">
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 20px;">
+                                <a href="https://www.disneyplus.com/">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/e544c3b4-a471-4cfe-bc68-4d19b9ceaa69.png" alt="Order early button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- End buttons -->
+                      <!-- Raya section : END -->
+
+                      <!-- Horizontal rule: BEGIN -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding-left:41px;padding-right:41px;padding-bottom: 50px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td bgcolor="#737487" style="background-color: #;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" style="display: block;" border="0" />
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- Horizontal rule: END -->
+
+                      <!-- Golden globe nominees : BEGIN -->
+                      <tr>
+                        <td bgcolor="#0d0d0d" align="center" style="color:#ffffff;font-size: 20px;font-family: Arial, Helvetica, sans-serif;font-weight: 700;background: #0d0d0d;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;line-height: 30px;">
+                          <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/1311db88-0226-4aba-9554-ef6b6ea14c00.png" alt="Golden globe nominees image" style="display: block;width: 100%;max-width: 400px;" width="400" border="0" />
+                        </td>
+                      </tr>
+                      <!-- 4 movies section Top: START -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding: 0px;padding-left: 40px;padding-right: 40px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/movies/soul/77zlWrb9vRYp?cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us-en-109755-false-null-soul_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/70669666-7b7f-4f71-a54d-9b94581268fb.jpg" alt="Soul poster image" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" style="font-size: 0%;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" alt="" width="15" height="15" style="display:block" border="0">
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/series/the-mandalorian/3jLIGMDYINqD?cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us-en-109755-false-null-Mandalorian_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/76abfdf8-f67d-4fe1-b246-5ebd2a89fa98.jpg" alt="The Mandalorian Poster" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- Bottom row -->
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 20px;">
+                                <a href="https://www.disneyplus.com/movies/hamilton/3uPmBHWlO6HJ?cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us-en-109755-false-null-Hamilton_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/4cd847a6-0d72-4a32-89a9-5410d191dbce.jpg" alt="Hamilton poster" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" style="font-size: 0%;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" alt="" width="15" height="15" style="display:block" border="0">
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 20px;">
+                                <a href="">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/154d2dac-a325-4422-8af8-d1e3f05bef38.jpg" alt="Onward poster" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- 4 movies section: END -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="background: #0d0d0d;color: #afafaf;font-family: Arial, Helvetica, sans-serif;font-size: 16px;padding-bottom: 30px;padding-right: 40px;padding-left: 40px;line-height: 24px;">
+                          Congratulations to <span style="font-style: italic;">The Mandalorian, Hamilton, Soul</span>, and <span style="font-style: italic;">Onward</span>! Have you seen all four?
+                        </td>
+                      </tr>
+                      <!-- Golden globe nominees: END -->
+
+                      <!-- Horizontal rule: BEGIN -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding-left:41px;padding-right:41px;padding-bottom: 50px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td bgcolor="#737487" style="background-color: #;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" style="display: block;" border="0" />
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- Horizontal rule: END -->
+
+                      <!-- Just added section: START -->
+                      <tr>
+                        <td bgcolor="#0d0d0d" align="center" style="color:#ffffff;font-size: 20px;font-family: Arial, Helvetica, sans-serif;font-weight: 700;background: #0d0d0d;padding-bottom: 20px;padding-left: 20px;padding-right: 20px;line-height: 30px;">
+                          Just added
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 40px;padding-left: 40px;padding-right: 40px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <!-- First row -->
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/movies/myth-a-frozen-tale/1N00Fn9eajzi?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-myth_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/dfb2f955-6af9-4552-96cb-b7e83c693816.jpg" alt="Soul poster image" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" style="font-size: 0%;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" alt="" width="15" height="15" style="display:block" border="0">
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/movies/flora-ulysses/S5BecuSTRmOu?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-flora_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/36d6a39e-80b9-4faf-8521-e2c9466baf5c.jpg" alt="The Mandalorian Poster" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- First row End -->
+
+                            <!-- Buttons -->
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/movies/myth-a-frozen-tale/1N00Fn9eajzi?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-myth_watchlist_button">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/2/83410e9e-8667-4e79-88f4-b71763a612ca.png" alt="Watchlist button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" style="font-size: 0%;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" alt="" width="15" height="15" style="display:block" border="0">
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/movies/flora-ulysses/S5BecuSTRmOu?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-flora_watchlist_button">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/2/83410e9e-8667-4e79-88f4-b71763a612ca.png" alt="Watchlist button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- Buttons end -->
+
+                            <!-- Second row -->
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/movies/rodgers-hammerstein-s-cinderella/1CZ6Np5CEIAY?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-cinderella_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/436ea683-83d3-49ad-b8c6-b21abec4791c.jpg" alt="Cinderella poster" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" style="font-size: 0%;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" alt="" width="15" height="15" style="display:block" border="0">
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/series/car-sos/5h0SQ0kTbY7p?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-car_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/3b52cd83-3474-4a53-8727-3d74c1d7d686.jpg" alt="Car SOS poster" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- Second row End -->
+
+                            <!-- Buttons -->
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/movies/rodgers-hammerstein-s-cinderella/1CZ6Np5CEIAY?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-cinderella_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/2/83410e9e-8667-4e79-88f4-b71763a612ca.png" alt="Watchlist button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" style="font-size: 0%;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" alt="" width="15" height="15" style="display:block" border="0">
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/series/car-sos/5h0SQ0kTbY7p?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-car_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/2/83410e9e-8667-4e79-88f4-b71763a612ca.png" alt="Watchlist button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- Buttons end -->
+
+                            <!-- Third row -->
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/series/american-dragon-jake-long/5chl4ttWMjUC?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-Jake_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/5a48e80d-98e8-43bf-9421-143eb5b074d1.jpg" alt="American Dragon poster" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" style="font-size: 0%;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" alt="" width="15" height="15" style="display:block" border="0">
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/series/pair-of-kings/4AG6tfahAlbk?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-kings_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/3/0d379d5f-5a82-4db2-88a3-5b0b51845f08.jpg" alt="Pair of Kinds poster" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- Third row End -->
+
+                            <!-- Buttons -->
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/series/american-dragon-jake-long/5chl4ttWMjUC?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-Jake_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/2/83410e9e-8667-4e79-88f4-b71763a612ca.png" alt="Watchlist button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" style="font-size: 0%;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" alt="" width="15" height="15" style="display:block" border="0">
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="padding-bottom: 10px;">
+                                <a href="https://www.disneyplus.com/series/pair-of-kings/4AG6tfahAlbk?addToWatchlist&cid=dss-Disneyplus-email-EPNKKWQT2D-US_ENT_EML_Demo_Segment1_2-2021_2_26-sfmc-7421--us--109755-false-null-kings_image">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/2/83410e9e-8667-4e79-88f4-b71763a612ca.png" alt="Watchlist button" style="display: block;border: 0;width: 100%;max-width: 195px;" width="195" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- Buttons end -->
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- Just added section: END -->
+
+                      <!-- Social Icons: START -->
+                      <tr>
+                        <td bgcolor="#0d0d0d" align="center" style="color:#ffffff;font-size: 20px;font-family: Arial, Helvetica, sans-serif;font-weight: 700;background: #0d0d0d;padding-bottom: 26px;padding-left: 20px;padding-right: 20px;line-height: 30px;">
+                          Follow us
+                        </td>
+                      </tr>
+                      <tr>
+                        <td bgcolor="#0d0d0d" style="padding-bottom: 30px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td align="center" bgcolor="#0d0d0d" style="background-color: #0d0d0d;">
+                                <a href="https://www.example.com">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/192ac4b7-811a-4df4-934f-baca4a4c8395.png" alt="Instagram" style="display: block;border:0;width: 100%;max-width: 45px;" width="45px" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="background-color: #0d0d0d;padding: 0 24px;">
+                                <a href="https://www.example.com">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/70b02b46-943f-482d-928c-d53f166956a5.png" alt="Instagram" style="display: block;border:0;width: 100%;max-width: 45px;" width="45px" border="0" />
+                                </a>
+                              </td>
+                              <td align="center" bgcolor="#0d0d0d" style="background-color: #0d0d0d;">
+                                <a href="https://www.example.com">
+                                  <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/d07bdc17-00f0-4d0b-b7d2-2c6f69d448fe.png" alt="Instagram" style="display: block;border:0;width: 100%;max-width: 45px;" width="45px" border="0" />
+                                </a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="background: #0d0d0d;color: #afafaf;font-family: Arial, Helvetica, sans-serif;font-size: 16px;padding-bottom: 40px;padding-right: 30px;padding-left: 30px;line-height: 24px;">
+                          For more information, please visit our <a href="https://www.example.com" style="color: #afafaf;text-decoration: underline;">Help Center</a>.
+                        </td>
+                      </tr>
+                      <!-- Social Icons: END -->
+
+                      <!-- Horizontal rule: BEGIN -->
+                      <tr>
+                        <td align="center" bgcolor="#0d0d0d" style="padding: 0;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td bgcolor="#737487" style="background-color: #;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/50b6aed0-e0d0-42ec-b6d9-0b67b86ca899.gif" style="display: block;" border="0" />
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <!-- Horizontal rule: END -->
+
+                    </table>
+                    <!-- Email Body : END -->
+
+                    <!-- Email Footer : BEGIN -->
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="width:100%;max-width: 600px;">
+                      <tr>
+                        <td bgcolor="#0d0d0d" style="padding: 30px 40px;">
+                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td style="padding-bottom:20px;">
+                                <img src="https://image.mail.disneyplus.com/lib/fe4415707564067f751773/m/1/ad332f70-9069-48ca-80db-e00cdcb45c48.png" alt="Studio logos" style="display: block;width: 100%;max-width: 390px;" width="390" border="0" />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px; text-align: left; color: #ffffff;padding-bottom: 20px;">
+                                This email was sent to: hello@SmilesDavis.yeah. Please do not reply to this email as this address is not monitored. This email contains an advertisement from: Disney Streaming Services, LLC, 75 Ninth Avenue 6th Floor, New York, NY 10011.
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px; text-align: left; color: #ffffff;padding-bottom: 20px;">
+                                If you do not want to receive future marketing email messages from Disney+, please <a href="https://www.example.com" style="font-weight: bold;color: #ffffff;text-decoration: underline;">opt-out</a>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 16px; text-align: left; color: #ffffff;">
+                                © 2021 Disney and its related entities. All Rights Reserved.
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                    <!-- Email Footer : END -->
+
+              <!--[if mso]>
+                  </td>
+                </tr>
+              </table>
+              <![endif]-->
+            </div>
+
+      <!--[if mso | IE]>
+          </td>
+        </tr>
+      </table>
+      <![endif]-->
+    </center>
+  </body>
+</html>
